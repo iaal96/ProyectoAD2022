@@ -11,6 +11,7 @@ reserved = {
     'para':'PARA',
     'clase':'CLASE',
     'imprime' : 'IMPRIME',
+    'lee':'LEE',
     'funcion':'FUNCION',
     'var' : 'VAR',
     'int' : 'INT',
@@ -21,7 +22,7 @@ reserved = {
     'verdadero':'VERDADERO',
     'falso':'FALSO',
     'regresa':'REGRESA',
-    'fin':'FIN',
+    'termina':'FIN',
     'principal':'PRINCIPAL',
 }
 

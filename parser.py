@@ -292,6 +292,7 @@ def p_estatuto(p):
     ''' estatuto : asignacion
                 | condicion
                 | escritura
+                | lectura
     '''
 def p_asignacion(p):
     ''' asignacion : ID IGUAL expresion SEMICOLON
@@ -312,6 +313,9 @@ def p_escrituraGrammar(p):
                         | varcte
                         | varcte COMA escrituraGrammar
     '''
+
+def p_lectura(p):
+    '''lectura : LEE LPARENT varcte RPARENT SEMICOLON'''
 
 def p_expresion(p):
     ''' expresion : exp
