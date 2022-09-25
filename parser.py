@@ -1,22 +1,263 @@
 import ply.yacc as yacc
+from re import U 
+#Obtener tokens del lexer
 from lexer import tokens
+import sys 
+#Data pretty printer
+from pprint import pprint
 
-#Vector Polaco
-VectorPolaco = []
+
 OpStack = []
-VarsStack=[]
 
 #Cuadruplos
+Cuadruplos = []
+#Hacer GOTO a main
+Cuadruplos.append(["GOTO", " ", "main", " "])
+#Pilas
 PilaO = []
 PilaSaltos = []
 PilaTipos = []
-Cuadruplos = []
+PilaDimensiones =[]
+PilaIDs = []
+
+#"Cubo" Semantico
+cubosemantico = {
+    "int" : {
+        "+": {
+            "int" : "int",
+            "float" : "float",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "-": {
+            "int" : "int",
+            "float" : "float",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "/": {
+            "int" : "int",
+            "float" : "float",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "*": {
+            "int" : "int",
+            "float" : "float",
+            "bool" : "error",
+            "string" : "error"
+        },
+        ">": {
+            "int" : "bool",
+            "float" : "bool",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "<": {
+            "int" : "bool",
+            "float" : "bool",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "!=": {
+            "int" : "bool",
+            "float" : "bool",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "==": {
+            "int" : "bool",
+            "float" : "bool",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "=": {
+            "int" : "int",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+    }, 
+    "float" : {
+        "+": {
+            "int" : "float",
+            "float" : "float",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "-": {
+            "int" : "float",
+            "float" : "float",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "/": {
+            "int" : "float",
+            "float" : "float",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "*": {
+            "int" : "float",
+            "float" : "float",
+            "bool" : "error",
+            "string" : "error"
+        },
+        ">": {
+            "int" : "bool",
+            "float" : "bool",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "<": {
+            "int" : "bool",
+            "float" : "bool",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "!=": {
+            "int" : "bool",
+            "float" : "bool",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "==": {
+            "int" : "bool",
+            "float" : "bool",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "=": {
+            "int" : "float",
+            "float" : "float",
+            "bool" : "error",
+            "string" : "error"
+        },
+
+    },
+    "string" : {
+        "+": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "string"
+        },
+        "-": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "/": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "*": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+        ">": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "<": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "!=": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "bool"
+        },
+         "==": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "bool"
+        },
+         "=": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "string"
+        },
+    },
+     "bool" : {
+        "+": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "-": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "/": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+        "*": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+        ">": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "<": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "error",
+            "string" : "error"
+        },
+         "!=": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "bool",
+            "string" : "error"
+        },
+         "==": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "bool",
+            "string" : "error"
+        },
+         "=": {
+            "int" : "error",
+            "float" : "error",
+            "bool" : "bool",
+            "string" : "error"
+        },
+    },
+}
+
 
 #reglas gramaticales
 def p_programa(p):
-    ''' programa : PROGRAMA ID SEMICOLON bloque
-                | PROGRAMA ID SEMICOLON vars bloque
+    ''' programa : PROGRAMA ID SEMICOLON main FIN
+                | PROGRAMA ID SEMICOLON vars main FIN
     '''
+
+def p_main(p):
+ '''main : PRINCIPAL LPARENT RPARENT bloque'''
 
 def p_vars(p):
     ''' vars : VAR vars2
@@ -114,14 +355,18 @@ def p_varcte(p):
     '''
 def p_error(p):
     print("Error de sintaxis: '%s'" % p.value)
-    exit()
+    sys.exit()
+
+def p_vacio(p):
+    '''vacio :'''
+    p[0] = None
 
 
 #crear parser
 parser = yacc.yacc(debug = True) 
 #verificar que el archivo existe
 try:
-    namef = "/Users/ivananguiano/Desktop/HW3.2/prueba.txt"
+    namef = "/Users/ivananguiano/Documents/Github/ProyectoAD2022/prueba.txt"
     file = open(namef,'r')
     s = file.read()
     file.close()

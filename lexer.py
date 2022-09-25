@@ -22,6 +22,7 @@ reserved = {
     'falso':'FALSO',
     'regresa':'REGRESA',
     'fin':'FIN',
+    'principal':'PRINCIPAL',
 }
 
 #tokens iniciales

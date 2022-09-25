@@ -1,6 +1,7 @@
 programa prueba;
 var a, b, c : float;
-{   
+
+principal(){   
     a = 1.0;
     b = 1.2;
     c = 2 * 1;
@@ -12,4 +13,5 @@ var a, b, c : float;
     } sino {
         c = 9;
     }; 
-}
+} 
+fin
