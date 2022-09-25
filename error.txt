@@ -1,0 +1,9 @@
+programa hola
+var a;
+{
+    b = 29
+    c = "hola mundo"
+    si(s + 2){
+        string = 90
+    }
+}

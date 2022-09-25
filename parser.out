@@ -1,0 +1,1344 @@
+Created by PLY version 3.4 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    PUNTO
+    CHAR
+    ENTONCES
+    MIENTRAS
+    PARA
+    CLASE
+    FUNCION
+    BOOL
+    VERDADERO
+    FALSO
+    REGRESA
+    FIN
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> PROGRAMA ID SEMICOLON bloque
+Rule 2     programa -> PROGRAMA ID SEMICOLON vars bloque
+Rule 3     vars -> VAR vars2
+Rule 4     vars2 -> vars3 COLON tipo SEMICOLON vars2
+Rule 5     vars2 -> vars3 COLON tipo SEMICOLON
+Rule 6     vars3 -> ID
+Rule 7     vars3 -> ID COMA vars3
+Rule 8     tipo -> INT
+Rule 9     tipo -> FLOAT
+Rule 10    bloque -> LBRACE estatuto2 RBRACE
+Rule 11    bloque -> LBRACE RBRACE
+Rule 12    estatuto2 -> estatuto
+Rule 13    estatuto2 -> estatuto2 estatuto
+Rule 14    estatuto -> asignacion
+Rule 15    estatuto -> condicion
+Rule 16    estatuto -> escritura
+Rule 17    asignacion -> ID IGUAL expresion SEMICOLON
+Rule 18    condicion -> COND_SI LPARENT expresion RPARENT bloque SEMICOLON
+Rule 19    condicion -> COND_SI LPARENT expresion RPARENT bloque COND_SINO bloque SEMICOLON
+Rule 20    escritura -> IMPRIME LPARENT escrituraGrammar RPARENT SEMICOLON
+Rule 21    escrituraGrammar -> expresion
+Rule 22    escrituraGrammar -> expresion COMA escrituraGrammar
+Rule 23    escrituraGrammar -> varcte
+Rule 24    escrituraGrammar -> varcte COMA escrituraGrammar
+Rule 25    expresion -> exp
+Rule 26    expresion -> exp MAYOR_QUE exp
+Rule 27    expresion -> exp MENOR_QUE exp
+Rule 28    expresion -> exp DIFERENTE_A exp
+Rule 29    exp -> termino
+Rule 30    exp -> termino exp2
+Rule 31    exp2 -> MAS exp
+Rule 32    exp2 -> MENOS exp
+Rule 33    termino -> factor
+Rule 34    termino -> factor termino2
+Rule 35    termino2 -> POR termino
+Rule 36    termino2 -> DIVIDE termino
+Rule 37    factor -> LPARENT expresion RPARENT
+Rule 38    factor -> MAS varcte
+Rule 39    factor -> MENOS varcte
+Rule 40    factor -> varcte
+Rule 41    varcte -> ID
+Rule 42    varcte -> CTEFLOAT
+Rule 43    varcte -> CTEINT
+Rule 44    varcte -> STRING
+
+Terminals, with rules where they appear
+
+BOOL                 : 
+CHAR                 : 
+CLASE                : 
+COLON                : 4 5
+COMA                 : 7 22 24
+COND_SI              : 18 19
+COND_SINO            : 19
+CTEFLOAT             : 42
+CTEINT               : 43
+DIFERENTE_A          : 28
+DIVIDE               : 36
+ENTONCES             : 
+FALSO                : 
+FIN                  : 
+FLOAT                : 9
+FUNCION              : 
+ID                   : 1 2 6 7 17 41
+IGUAL                : 17
+IMPRIME              : 20
+INT                  : 8
+LBRACE               : 10 11
+LPARENT              : 18 19 20 37
+MAS                  : 31 38
+MAYOR_QUE            : 26
+MENOR_QUE            : 27
+MENOS                : 32 39
+MIENTRAS             : 
+PARA                 : 
+POR                  : 35
+PROGRAMA             : 1 2
+PUNTO                : 
+RBRACE               : 10 11
+REGRESA              : 
+RPARENT              : 18 19 20 37
+SEMICOLON            : 1 2 4 5 17 18 19 20
+STRING               : 44
+VAR                  : 3
+VERDADERO            : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 14
+bloque               : 1 2 18 19 19
+condicion            : 15
+escritura            : 16
+escrituraGrammar     : 20 22 24
+estatuto             : 12 13
+estatuto2            : 10 13
+exp                  : 25 26 26 27 27 28 28 31 32
+exp2                 : 30
+expresion            : 17 18 19 21 22 37
+factor               : 33 34
+programa             : 0
+termino              : 29 30 35 36
+termino2             : 34
+tipo                 : 4 5
+varcte               : 23 24 38 39 40
+vars                 : 2
+vars2                : 3 4
+vars3                : 4 5 7
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . PROGRAMA ID SEMICOLON bloque
+    (2) programa -> . PROGRAMA ID SEMICOLON vars bloque
+
+    PROGRAMA        shift and go to state 2
+
+    programa                       shift and go to state 1
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> PROGRAMA . ID SEMICOLON bloque
+    (2) programa -> PROGRAMA . ID SEMICOLON vars bloque
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) programa -> PROGRAMA ID . SEMICOLON bloque
+    (2) programa -> PROGRAMA ID . SEMICOLON vars bloque
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) programa -> PROGRAMA ID SEMICOLON . bloque
+    (2) programa -> PROGRAMA ID SEMICOLON . vars bloque
+    (10) bloque -> . LBRACE estatuto2 RBRACE
+    (11) bloque -> . LBRACE RBRACE
+    (3) vars -> . VAR vars2
+
+    LBRACE          shift and go to state 7
+    VAR             shift and go to state 8
+
+    bloque                         shift and go to state 5
+    vars                           shift and go to state 6
+
+state 5
+
+    (1) programa -> PROGRAMA ID SEMICOLON bloque .
+
+    $end            reduce using rule 1 (programa -> PROGRAMA ID SEMICOLON bloque .)
+
+
+state 6
+
+    (2) programa -> PROGRAMA ID SEMICOLON vars . bloque
+    (10) bloque -> . LBRACE estatuto2 RBRACE
+    (11) bloque -> . LBRACE RBRACE
+
+    LBRACE          shift and go to state 7
+
+    bloque                         shift and go to state 9
+
+state 7
+
+    (10) bloque -> LBRACE . estatuto2 RBRACE
+    (11) bloque -> LBRACE . RBRACE
+    (12) estatuto2 -> . estatuto
+    (13) estatuto2 -> . estatuto2 estatuto
+    (14) estatuto -> . asignacion
+    (15) estatuto -> . condicion
+    (16) estatuto -> . escritura
+    (17) asignacion -> . ID IGUAL expresion SEMICOLON
+    (18) condicion -> . COND_SI LPARENT expresion RPARENT bloque SEMICOLON
+    (19) condicion -> . COND_SI LPARENT expresion RPARENT bloque COND_SINO bloque SEMICOLON
+    (20) escritura -> . IMPRIME LPARENT escrituraGrammar RPARENT SEMICOLON
+
+    RBRACE          shift and go to state 11
+    ID              shift and go to state 16
+    COND_SI         shift and go to state 17
+    IMPRIME         shift and go to state 18
+
+    estatuto2                      shift and go to state 10
+    estatuto                       shift and go to state 12
+    asignacion                     shift and go to state 13
+    condicion                      shift and go to state 14
+    escritura                      shift and go to state 15
+
+state 8
+
+    (3) vars -> VAR . vars2
+    (4) vars2 -> . vars3 COLON tipo SEMICOLON vars2
+    (5) vars2 -> . vars3 COLON tipo SEMICOLON
+    (6) vars3 -> . ID
+    (7) vars3 -> . ID COMA vars3
+
+    ID              shift and go to state 21
+
+    vars2                          shift and go to state 19
+    vars3                          shift and go to state 20
+
+state 9
+
+    (2) programa -> PROGRAMA ID SEMICOLON vars bloque .
+
+    $end            reduce using rule 2 (programa -> PROGRAMA ID SEMICOLON vars bloque .)
+
+
+state 10
+
+    (10) bloque -> LBRACE estatuto2 . RBRACE
+    (13) estatuto2 -> estatuto2 . estatuto
+    (14) estatuto -> . asignacion
+    (15) estatuto -> . condicion
+    (16) estatuto -> . escritura
+    (17) asignacion -> . ID IGUAL expresion SEMICOLON
+    (18) condicion -> . COND_SI LPARENT expresion RPARENT bloque SEMICOLON
+    (19) condicion -> . COND_SI LPARENT expresion RPARENT bloque COND_SINO bloque SEMICOLON
+    (20) escritura -> . IMPRIME LPARENT escrituraGrammar RPARENT SEMICOLON
+
+    RBRACE          shift and go to state 22
+    ID              shift and go to state 16
+    COND_SI         shift and go to state 17
+    IMPRIME         shift and go to state 18
+
+    estatuto                       shift and go to state 23
+    asignacion                     shift and go to state 13
+    condicion                      shift and go to state 14
+    escritura                      shift and go to state 15
+
+state 11
+
+    (11) bloque -> LBRACE RBRACE .
+
+    $end            reduce using rule 11 (bloque -> LBRACE RBRACE .)
+    SEMICOLON       reduce using rule 11 (bloque -> LBRACE RBRACE .)
+    COND_SINO       reduce using rule 11 (bloque -> LBRACE RBRACE .)
+
+
+state 12
+
+    (12) estatuto2 -> estatuto .
+
+    RBRACE          reduce using rule 12 (estatuto2 -> estatuto .)
+    ID              reduce using rule 12 (estatuto2 -> estatuto .)
+    COND_SI         reduce using rule 12 (estatuto2 -> estatuto .)
+    IMPRIME         reduce using rule 12 (estatuto2 -> estatuto .)
+
+
+state 13
+
+    (14) estatuto -> asignacion .
+
+    RBRACE          reduce using rule 14 (estatuto -> asignacion .)
+    ID              reduce using rule 14 (estatuto -> asignacion .)
+    COND_SI         reduce using rule 14 (estatuto -> asignacion .)
+    IMPRIME         reduce using rule 14 (estatuto -> asignacion .)
+
+
+state 14
+
+    (15) estatuto -> condicion .
+
+    RBRACE          reduce using rule 15 (estatuto -> condicion .)
+    ID              reduce using rule 15 (estatuto -> condicion .)
+    COND_SI         reduce using rule 15 (estatuto -> condicion .)
+    IMPRIME         reduce using rule 15 (estatuto -> condicion .)
+
+
+state 15
+
+    (16) estatuto -> escritura .
+
+    RBRACE          reduce using rule 16 (estatuto -> escritura .)
+    ID              reduce using rule 16 (estatuto -> escritura .)
+    COND_SI         reduce using rule 16 (estatuto -> escritura .)
+    IMPRIME         reduce using rule 16 (estatuto -> escritura .)
+
+
+state 16
+
+    (17) asignacion -> ID . IGUAL expresion SEMICOLON
+
+    IGUAL           shift and go to state 24
+
+
+state 17
+
+    (18) condicion -> COND_SI . LPARENT expresion RPARENT bloque SEMICOLON
+    (19) condicion -> COND_SI . LPARENT expresion RPARENT bloque COND_SINO bloque SEMICOLON
+
+    LPARENT         shift and go to state 25
+
+
+state 18
+
+    (20) escritura -> IMPRIME . LPARENT escrituraGrammar RPARENT SEMICOLON
+
+    LPARENT         shift and go to state 26
+
+
+state 19
+
+    (3) vars -> VAR vars2 .
+
+    LBRACE          reduce using rule 3 (vars -> VAR vars2 .)
+
+
+state 20
+
+    (4) vars2 -> vars3 . COLON tipo SEMICOLON vars2
+    (5) vars2 -> vars3 . COLON tipo SEMICOLON
+
+    COLON           shift and go to state 27
+
+
+state 21
+
+    (6) vars3 -> ID .
+    (7) vars3 -> ID . COMA vars3
+
+    COLON           reduce using rule 6 (vars3 -> ID .)
+    COMA            shift and go to state 28
+
+
+state 22
+
+    (10) bloque -> LBRACE estatuto2 RBRACE .
+
+    $end            reduce using rule 10 (bloque -> LBRACE estatuto2 RBRACE .)
+    SEMICOLON       reduce using rule 10 (bloque -> LBRACE estatuto2 RBRACE .)
+    COND_SINO       reduce using rule 10 (bloque -> LBRACE estatuto2 RBRACE .)
+
+
+state 23
+
+    (13) estatuto2 -> estatuto2 estatuto .
+
+    RBRACE          reduce using rule 13 (estatuto2 -> estatuto2 estatuto .)
+    ID              reduce using rule 13 (estatuto2 -> estatuto2 estatuto .)
+    COND_SI         reduce using rule 13 (estatuto2 -> estatuto2 estatuto .)
+    IMPRIME         reduce using rule 13 (estatuto2 -> estatuto2 estatuto .)
+
+
+state 24
+
+    (17) asignacion -> ID IGUAL . expresion SEMICOLON
+    (25) expresion -> . exp
+    (26) expresion -> . exp MAYOR_QUE exp
+    (27) expresion -> . exp MENOR_QUE exp
+    (28) expresion -> . exp DIFERENTE_A exp
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    expresion                      shift and go to state 30
+    exp                            shift and go to state 31
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+    varcte                         shift and go to state 36
+
+state 25
+
+    (18) condicion -> COND_SI LPARENT . expresion RPARENT bloque SEMICOLON
+    (19) condicion -> COND_SI LPARENT . expresion RPARENT bloque COND_SINO bloque SEMICOLON
+    (25) expresion -> . exp
+    (26) expresion -> . exp MAYOR_QUE exp
+    (27) expresion -> . exp MENOR_QUE exp
+    (28) expresion -> . exp DIFERENTE_A exp
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    expresion                      shift and go to state 41
+    exp                            shift and go to state 31
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+    varcte                         shift and go to state 36
+
+state 26
+
+    (20) escritura -> IMPRIME LPARENT . escrituraGrammar RPARENT SEMICOLON
+    (21) escrituraGrammar -> . expresion
+    (22) escrituraGrammar -> . expresion COMA escrituraGrammar
+    (23) escrituraGrammar -> . varcte
+    (24) escrituraGrammar -> . varcte COMA escrituraGrammar
+    (25) expresion -> . exp
+    (26) expresion -> . exp MAYOR_QUE exp
+    (27) expresion -> . exp MENOR_QUE exp
+    (28) expresion -> . exp DIFERENTE_A exp
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+
+    escrituraGrammar               shift and go to state 42
+    expresion                      shift and go to state 43
+    varcte                         shift and go to state 44
+    exp                            shift and go to state 31
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+
+state 27
+
+    (4) vars2 -> vars3 COLON . tipo SEMICOLON vars2
+    (5) vars2 -> vars3 COLON . tipo SEMICOLON
+    (8) tipo -> . INT
+    (9) tipo -> . FLOAT
+
+    INT             shift and go to state 46
+    FLOAT           shift and go to state 47
+
+    tipo                           shift and go to state 45
+
+state 28
+
+    (7) vars3 -> ID COMA . vars3
+    (6) vars3 -> . ID
+    (7) vars3 -> . ID COMA vars3
+
+    ID              shift and go to state 21
+
+    vars3                          shift and go to state 48
+
+state 29
+
+    (41) varcte -> ID .
+
+    POR             reduce using rule 41 (varcte -> ID .)
+    DIVIDE          reduce using rule 41 (varcte -> ID .)
+    MAS             reduce using rule 41 (varcte -> ID .)
+    MENOS           reduce using rule 41 (varcte -> ID .)
+    MAYOR_QUE       reduce using rule 41 (varcte -> ID .)
+    MENOR_QUE       reduce using rule 41 (varcte -> ID .)
+    DIFERENTE_A     reduce using rule 41 (varcte -> ID .)
+    SEMICOLON       reduce using rule 41 (varcte -> ID .)
+    RPARENT         reduce using rule 41 (varcte -> ID .)
+    COMA            reduce using rule 41 (varcte -> ID .)
+
+
+state 30
+
+    (17) asignacion -> ID IGUAL expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 49
+
+
+state 31
+
+    (25) expresion -> exp .
+    (26) expresion -> exp . MAYOR_QUE exp
+    (27) expresion -> exp . MENOR_QUE exp
+    (28) expresion -> exp . DIFERENTE_A exp
+
+    SEMICOLON       reduce using rule 25 (expresion -> exp .)
+    RPARENT         reduce using rule 25 (expresion -> exp .)
+    COMA            reduce using rule 25 (expresion -> exp .)
+    MAYOR_QUE       shift and go to state 50
+    MENOR_QUE       shift and go to state 51
+    DIFERENTE_A     shift and go to state 52
+
+
+state 32
+
+    (29) exp -> termino .
+    (30) exp -> termino . exp2
+    (31) exp2 -> . MAS exp
+    (32) exp2 -> . MENOS exp
+
+    MAYOR_QUE       reduce using rule 29 (exp -> termino .)
+    MENOR_QUE       reduce using rule 29 (exp -> termino .)
+    DIFERENTE_A     reduce using rule 29 (exp -> termino .)
+    SEMICOLON       reduce using rule 29 (exp -> termino .)
+    RPARENT         reduce using rule 29 (exp -> termino .)
+    COMA            reduce using rule 29 (exp -> termino .)
+    MAS             shift and go to state 54
+    MENOS           shift and go to state 55
+
+    exp2                           shift and go to state 53
+
+state 33
+
+    (33) termino -> factor .
+    (34) termino -> factor . termino2
+    (35) termino2 -> . POR termino
+    (36) termino2 -> . DIVIDE termino
+
+    MAS             reduce using rule 33 (termino -> factor .)
+    MENOS           reduce using rule 33 (termino -> factor .)
+    MAYOR_QUE       reduce using rule 33 (termino -> factor .)
+    MENOR_QUE       reduce using rule 33 (termino -> factor .)
+    DIFERENTE_A     reduce using rule 33 (termino -> factor .)
+    SEMICOLON       reduce using rule 33 (termino -> factor .)
+    RPARENT         reduce using rule 33 (termino -> factor .)
+    COMA            reduce using rule 33 (termino -> factor .)
+    POR             shift and go to state 57
+    DIVIDE          shift and go to state 58
+
+    termino2                       shift and go to state 56
+
+state 34
+
+    (37) factor -> LPARENT . expresion RPARENT
+    (25) expresion -> . exp
+    (26) expresion -> . exp MAYOR_QUE exp
+    (27) expresion -> . exp MENOR_QUE exp
+    (28) expresion -> . exp DIFERENTE_A exp
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    expresion                      shift and go to state 59
+    exp                            shift and go to state 31
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+    varcte                         shift and go to state 36
+
+state 35
+
+    (38) factor -> MAS . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    varcte                         shift and go to state 60
+
+state 36
+
+    (40) factor -> varcte .
+
+    POR             reduce using rule 40 (factor -> varcte .)
+    DIVIDE          reduce using rule 40 (factor -> varcte .)
+    MAS             reduce using rule 40 (factor -> varcte .)
+    MENOS           reduce using rule 40 (factor -> varcte .)
+    MAYOR_QUE       reduce using rule 40 (factor -> varcte .)
+    MENOR_QUE       reduce using rule 40 (factor -> varcte .)
+    DIFERENTE_A     reduce using rule 40 (factor -> varcte .)
+    SEMICOLON       reduce using rule 40 (factor -> varcte .)
+    RPARENT         reduce using rule 40 (factor -> varcte .)
+    COMA            reduce using rule 40 (factor -> varcte .)
+
+
+state 37
+
+    (39) factor -> MENOS . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    varcte                         shift and go to state 61
+
+state 38
+
+    (42) varcte -> CTEFLOAT .
+
+    POR             reduce using rule 42 (varcte -> CTEFLOAT .)
+    DIVIDE          reduce using rule 42 (varcte -> CTEFLOAT .)
+    MAS             reduce using rule 42 (varcte -> CTEFLOAT .)
+    MENOS           reduce using rule 42 (varcte -> CTEFLOAT .)
+    MAYOR_QUE       reduce using rule 42 (varcte -> CTEFLOAT .)
+    MENOR_QUE       reduce using rule 42 (varcte -> CTEFLOAT .)
+    DIFERENTE_A     reduce using rule 42 (varcte -> CTEFLOAT .)
+    SEMICOLON       reduce using rule 42 (varcte -> CTEFLOAT .)
+    RPARENT         reduce using rule 42 (varcte -> CTEFLOAT .)
+    COMA            reduce using rule 42 (varcte -> CTEFLOAT .)
+
+
+state 39
+
+    (43) varcte -> CTEINT .
+
+    POR             reduce using rule 43 (varcte -> CTEINT .)
+    DIVIDE          reduce using rule 43 (varcte -> CTEINT .)
+    MAS             reduce using rule 43 (varcte -> CTEINT .)
+    MENOS           reduce using rule 43 (varcte -> CTEINT .)
+    MAYOR_QUE       reduce using rule 43 (varcte -> CTEINT .)
+    MENOR_QUE       reduce using rule 43 (varcte -> CTEINT .)
+    DIFERENTE_A     reduce using rule 43 (varcte -> CTEINT .)
+    SEMICOLON       reduce using rule 43 (varcte -> CTEINT .)
+    RPARENT         reduce using rule 43 (varcte -> CTEINT .)
+    COMA            reduce using rule 43 (varcte -> CTEINT .)
+
+
+state 40
+
+    (44) varcte -> STRING .
+
+    POR             reduce using rule 44 (varcte -> STRING .)
+    DIVIDE          reduce using rule 44 (varcte -> STRING .)
+    MAS             reduce using rule 44 (varcte -> STRING .)
+    MENOS           reduce using rule 44 (varcte -> STRING .)
+    MAYOR_QUE       reduce using rule 44 (varcte -> STRING .)
+    MENOR_QUE       reduce using rule 44 (varcte -> STRING .)
+    DIFERENTE_A     reduce using rule 44 (varcte -> STRING .)
+    SEMICOLON       reduce using rule 44 (varcte -> STRING .)
+    RPARENT         reduce using rule 44 (varcte -> STRING .)
+    COMA            reduce using rule 44 (varcte -> STRING .)
+
+
+state 41
+
+    (18) condicion -> COND_SI LPARENT expresion . RPARENT bloque SEMICOLON
+    (19) condicion -> COND_SI LPARENT expresion . RPARENT bloque COND_SINO bloque SEMICOLON
+
+    RPARENT         shift and go to state 62
+
+
+state 42
+
+    (20) escritura -> IMPRIME LPARENT escrituraGrammar . RPARENT SEMICOLON
+
+    RPARENT         shift and go to state 63
+
+
+state 43
+
+    (21) escrituraGrammar -> expresion .
+    (22) escrituraGrammar -> expresion . COMA escrituraGrammar
+
+    RPARENT         reduce using rule 21 (escrituraGrammar -> expresion .)
+    COMA            shift and go to state 64
+
+
+state 44
+
+    (23) escrituraGrammar -> varcte .
+    (24) escrituraGrammar -> varcte . COMA escrituraGrammar
+    (40) factor -> varcte .
+
+  ! shift/reduce conflict for COMA resolved as shift
+  ! reduce/reduce conflict for RPARENT resolved using rule 23 (escrituraGrammar -> varcte .)
+    RPARENT         reduce using rule 23 (escrituraGrammar -> varcte .)
+    COMA            shift and go to state 65
+    POR             reduce using rule 40 (factor -> varcte .)
+    DIVIDE          reduce using rule 40 (factor -> varcte .)
+    MAS             reduce using rule 40 (factor -> varcte .)
+    MENOS           reduce using rule 40 (factor -> varcte .)
+    MAYOR_QUE       reduce using rule 40 (factor -> varcte .)
+    MENOR_QUE       reduce using rule 40 (factor -> varcte .)
+    DIFERENTE_A     reduce using rule 40 (factor -> varcte .)
+
+  ! COMA            [ reduce using rule 40 (factor -> varcte .) ]
+  ! RPARENT         [ reduce using rule 40 (factor -> varcte .) ]
+
+
+state 45
+
+    (4) vars2 -> vars3 COLON tipo . SEMICOLON vars2
+    (5) vars2 -> vars3 COLON tipo . SEMICOLON
+
+    SEMICOLON       shift and go to state 66
+
+
+state 46
+
+    (8) tipo -> INT .
+
+    SEMICOLON       reduce using rule 8 (tipo -> INT .)
+
+
+state 47
+
+    (9) tipo -> FLOAT .
+
+    SEMICOLON       reduce using rule 9 (tipo -> FLOAT .)
+
+
+state 48
+
+    (7) vars3 -> ID COMA vars3 .
+
+    COLON           reduce using rule 7 (vars3 -> ID COMA vars3 .)
+
+
+state 49
+
+    (17) asignacion -> ID IGUAL expresion SEMICOLON .
+
+    RBRACE          reduce using rule 17 (asignacion -> ID IGUAL expresion SEMICOLON .)
+    ID              reduce using rule 17 (asignacion -> ID IGUAL expresion SEMICOLON .)
+    COND_SI         reduce using rule 17 (asignacion -> ID IGUAL expresion SEMICOLON .)
+    IMPRIME         reduce using rule 17 (asignacion -> ID IGUAL expresion SEMICOLON .)
+
+
+state 50
+
+    (26) expresion -> exp MAYOR_QUE . exp
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    exp                            shift and go to state 67
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+    varcte                         shift and go to state 36
+
+state 51
+
+    (27) expresion -> exp MENOR_QUE . exp
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    exp                            shift and go to state 68
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+    varcte                         shift and go to state 36
+
+state 52
+
+    (28) expresion -> exp DIFERENTE_A . exp
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    exp                            shift and go to state 69
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+    varcte                         shift and go to state 36
+
+state 53
+
+    (30) exp -> termino exp2 .
+
+    MAYOR_QUE       reduce using rule 30 (exp -> termino exp2 .)
+    MENOR_QUE       reduce using rule 30 (exp -> termino exp2 .)
+    DIFERENTE_A     reduce using rule 30 (exp -> termino exp2 .)
+    SEMICOLON       reduce using rule 30 (exp -> termino exp2 .)
+    RPARENT         reduce using rule 30 (exp -> termino exp2 .)
+    COMA            reduce using rule 30 (exp -> termino exp2 .)
+
+
+state 54
+
+    (31) exp2 -> MAS . exp
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    exp                            shift and go to state 70
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+    varcte                         shift and go to state 36
+
+state 55
+
+    (32) exp2 -> MENOS . exp
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    exp                            shift and go to state 71
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+    varcte                         shift and go to state 36
+
+state 56
+
+    (34) termino -> factor termino2 .
+
+    MAS             reduce using rule 34 (termino -> factor termino2 .)
+    MENOS           reduce using rule 34 (termino -> factor termino2 .)
+    MAYOR_QUE       reduce using rule 34 (termino -> factor termino2 .)
+    MENOR_QUE       reduce using rule 34 (termino -> factor termino2 .)
+    DIFERENTE_A     reduce using rule 34 (termino -> factor termino2 .)
+    SEMICOLON       reduce using rule 34 (termino -> factor termino2 .)
+    RPARENT         reduce using rule 34 (termino -> factor termino2 .)
+    COMA            reduce using rule 34 (termino -> factor termino2 .)
+
+
+state 57
+
+    (35) termino2 -> POR . termino
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    termino                        shift and go to state 72
+    factor                         shift and go to state 33
+    varcte                         shift and go to state 36
+
+state 58
+
+    (36) termino2 -> DIVIDE . termino
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+
+    termino                        shift and go to state 73
+    factor                         shift and go to state 33
+    varcte                         shift and go to state 36
+
+state 59
+
+    (37) factor -> LPARENT expresion . RPARENT
+
+    RPARENT         shift and go to state 74
+
+
+state 60
+
+    (38) factor -> MAS varcte .
+
+    POR             reduce using rule 38 (factor -> MAS varcte .)
+    DIVIDE          reduce using rule 38 (factor -> MAS varcte .)
+    MAS             reduce using rule 38 (factor -> MAS varcte .)
+    MENOS           reduce using rule 38 (factor -> MAS varcte .)
+    MAYOR_QUE       reduce using rule 38 (factor -> MAS varcte .)
+    MENOR_QUE       reduce using rule 38 (factor -> MAS varcte .)
+    DIFERENTE_A     reduce using rule 38 (factor -> MAS varcte .)
+    SEMICOLON       reduce using rule 38 (factor -> MAS varcte .)
+    RPARENT         reduce using rule 38 (factor -> MAS varcte .)
+    COMA            reduce using rule 38 (factor -> MAS varcte .)
+
+
+state 61
+
+    (39) factor -> MENOS varcte .
+
+    POR             reduce using rule 39 (factor -> MENOS varcte .)
+    DIVIDE          reduce using rule 39 (factor -> MENOS varcte .)
+    MAS             reduce using rule 39 (factor -> MENOS varcte .)
+    MENOS           reduce using rule 39 (factor -> MENOS varcte .)
+    MAYOR_QUE       reduce using rule 39 (factor -> MENOS varcte .)
+    MENOR_QUE       reduce using rule 39 (factor -> MENOS varcte .)
+    DIFERENTE_A     reduce using rule 39 (factor -> MENOS varcte .)
+    SEMICOLON       reduce using rule 39 (factor -> MENOS varcte .)
+    RPARENT         reduce using rule 39 (factor -> MENOS varcte .)
+    COMA            reduce using rule 39 (factor -> MENOS varcte .)
+
+
+state 62
+
+    (18) condicion -> COND_SI LPARENT expresion RPARENT . bloque SEMICOLON
+    (19) condicion -> COND_SI LPARENT expresion RPARENT . bloque COND_SINO bloque SEMICOLON
+    (10) bloque -> . LBRACE estatuto2 RBRACE
+    (11) bloque -> . LBRACE RBRACE
+
+    LBRACE          shift and go to state 7
+
+    bloque                         shift and go to state 75
+
+state 63
+
+    (20) escritura -> IMPRIME LPARENT escrituraGrammar RPARENT . SEMICOLON
+
+    SEMICOLON       shift and go to state 76
+
+
+state 64
+
+    (22) escrituraGrammar -> expresion COMA . escrituraGrammar
+    (21) escrituraGrammar -> . expresion
+    (22) escrituraGrammar -> . expresion COMA escrituraGrammar
+    (23) escrituraGrammar -> . varcte
+    (24) escrituraGrammar -> . varcte COMA escrituraGrammar
+    (25) expresion -> . exp
+    (26) expresion -> . exp MAYOR_QUE exp
+    (27) expresion -> . exp MENOR_QUE exp
+    (28) expresion -> . exp DIFERENTE_A exp
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+
+    expresion                      shift and go to state 43
+    escrituraGrammar               shift and go to state 77
+    varcte                         shift and go to state 44
+    exp                            shift and go to state 31
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+
+state 65
+
+    (24) escrituraGrammar -> varcte COMA . escrituraGrammar
+    (21) escrituraGrammar -> . expresion
+    (22) escrituraGrammar -> . expresion COMA escrituraGrammar
+    (23) escrituraGrammar -> . varcte
+    (24) escrituraGrammar -> . varcte COMA escrituraGrammar
+    (25) expresion -> . exp
+    (26) expresion -> . exp MAYOR_QUE exp
+    (27) expresion -> . exp MENOR_QUE exp
+    (28) expresion -> . exp DIFERENTE_A exp
+    (41) varcte -> . ID
+    (42) varcte -> . CTEFLOAT
+    (43) varcte -> . CTEINT
+    (44) varcte -> . STRING
+    (29) exp -> . termino
+    (30) exp -> . termino exp2
+    (33) termino -> . factor
+    (34) termino -> . factor termino2
+    (37) factor -> . LPARENT expresion RPARENT
+    (38) factor -> . MAS varcte
+    (39) factor -> . MENOS varcte
+    (40) factor -> . varcte
+
+    ID              shift and go to state 29
+    CTEFLOAT        shift and go to state 38
+    CTEINT          shift and go to state 39
+    STRING          shift and go to state 40
+    LPARENT         shift and go to state 34
+    MAS             shift and go to state 35
+    MENOS           shift and go to state 37
+
+    varcte                         shift and go to state 44
+    escrituraGrammar               shift and go to state 78
+    expresion                      shift and go to state 43
+    exp                            shift and go to state 31
+    termino                        shift and go to state 32
+    factor                         shift and go to state 33
+
+state 66
+
+    (4) vars2 -> vars3 COLON tipo SEMICOLON . vars2
+    (5) vars2 -> vars3 COLON tipo SEMICOLON .
+    (4) vars2 -> . vars3 COLON tipo SEMICOLON vars2
+    (5) vars2 -> . vars3 COLON tipo SEMICOLON
+    (6) vars3 -> . ID
+    (7) vars3 -> . ID COMA vars3
+
+    LBRACE          reduce using rule 5 (vars2 -> vars3 COLON tipo SEMICOLON .)
+    ID              shift and go to state 21
+
+    vars3                          shift and go to state 20
+    vars2                          shift and go to state 79
+
+state 67
+
+    (26) expresion -> exp MAYOR_QUE exp .
+
+    SEMICOLON       reduce using rule 26 (expresion -> exp MAYOR_QUE exp .)
+    RPARENT         reduce using rule 26 (expresion -> exp MAYOR_QUE exp .)
+    COMA            reduce using rule 26 (expresion -> exp MAYOR_QUE exp .)
+
+
+state 68
+
+    (27) expresion -> exp MENOR_QUE exp .
+
+    SEMICOLON       reduce using rule 27 (expresion -> exp MENOR_QUE exp .)
+    RPARENT         reduce using rule 27 (expresion -> exp MENOR_QUE exp .)
+    COMA            reduce using rule 27 (expresion -> exp MENOR_QUE exp .)
+
+
+state 69
+
+    (28) expresion -> exp DIFERENTE_A exp .
+
+    SEMICOLON       reduce using rule 28 (expresion -> exp DIFERENTE_A exp .)
+    RPARENT         reduce using rule 28 (expresion -> exp DIFERENTE_A exp .)
+    COMA            reduce using rule 28 (expresion -> exp DIFERENTE_A exp .)
+
+
+state 70
+
+    (31) exp2 -> MAS exp .
+
+    MAYOR_QUE       reduce using rule 31 (exp2 -> MAS exp .)
+    MENOR_QUE       reduce using rule 31 (exp2 -> MAS exp .)
+    DIFERENTE_A     reduce using rule 31 (exp2 -> MAS exp .)
+    SEMICOLON       reduce using rule 31 (exp2 -> MAS exp .)
+    RPARENT         reduce using rule 31 (exp2 -> MAS exp .)
+    COMA            reduce using rule 31 (exp2 -> MAS exp .)
+
+
+state 71
+
+    (32) exp2 -> MENOS exp .
+
+    MAYOR_QUE       reduce using rule 32 (exp2 -> MENOS exp .)
+    MENOR_QUE       reduce using rule 32 (exp2 -> MENOS exp .)
+    DIFERENTE_A     reduce using rule 32 (exp2 -> MENOS exp .)
+    SEMICOLON       reduce using rule 32 (exp2 -> MENOS exp .)
+    RPARENT         reduce using rule 32 (exp2 -> MENOS exp .)
+    COMA            reduce using rule 32 (exp2 -> MENOS exp .)
+
+
+state 72
+
+    (35) termino2 -> POR termino .
+
+    MAS             reduce using rule 35 (termino2 -> POR termino .)
+    MENOS           reduce using rule 35 (termino2 -> POR termino .)
+    MAYOR_QUE       reduce using rule 35 (termino2 -> POR termino .)
+    MENOR_QUE       reduce using rule 35 (termino2 -> POR termino .)
+    DIFERENTE_A     reduce using rule 35 (termino2 -> POR termino .)
+    SEMICOLON       reduce using rule 35 (termino2 -> POR termino .)
+    RPARENT         reduce using rule 35 (termino2 -> POR termino .)
+    COMA            reduce using rule 35 (termino2 -> POR termino .)
+
+
+state 73
+
+    (36) termino2 -> DIVIDE termino .
+
+    MAS             reduce using rule 36 (termino2 -> DIVIDE termino .)
+    MENOS           reduce using rule 36 (termino2 -> DIVIDE termino .)
+    MAYOR_QUE       reduce using rule 36 (termino2 -> DIVIDE termino .)
+    MENOR_QUE       reduce using rule 36 (termino2 -> DIVIDE termino .)
+    DIFERENTE_A     reduce using rule 36 (termino2 -> DIVIDE termino .)
+    SEMICOLON       reduce using rule 36 (termino2 -> DIVIDE termino .)
+    RPARENT         reduce using rule 36 (termino2 -> DIVIDE termino .)
+    COMA            reduce using rule 36 (termino2 -> DIVIDE termino .)
+
+
+state 74
+
+    (37) factor -> LPARENT expresion RPARENT .
+
+    POR             reduce using rule 37 (factor -> LPARENT expresion RPARENT .)
+    DIVIDE          reduce using rule 37 (factor -> LPARENT expresion RPARENT .)
+    MAS             reduce using rule 37 (factor -> LPARENT expresion RPARENT .)
+    MENOS           reduce using rule 37 (factor -> LPARENT expresion RPARENT .)
+    MAYOR_QUE       reduce using rule 37 (factor -> LPARENT expresion RPARENT .)
+    MENOR_QUE       reduce using rule 37 (factor -> LPARENT expresion RPARENT .)
+    DIFERENTE_A     reduce using rule 37 (factor -> LPARENT expresion RPARENT .)
+    SEMICOLON       reduce using rule 37 (factor -> LPARENT expresion RPARENT .)
+    RPARENT         reduce using rule 37 (factor -> LPARENT expresion RPARENT .)
+    COMA            reduce using rule 37 (factor -> LPARENT expresion RPARENT .)
+
+
+state 75
+
+    (18) condicion -> COND_SI LPARENT expresion RPARENT bloque . SEMICOLON
+    (19) condicion -> COND_SI LPARENT expresion RPARENT bloque . COND_SINO bloque SEMICOLON
+
+    SEMICOLON       shift and go to state 80
+    COND_SINO       shift and go to state 81
+
+
+state 76
+
+    (20) escritura -> IMPRIME LPARENT escrituraGrammar RPARENT SEMICOLON .
+
+    RBRACE          reduce using rule 20 (escritura -> IMPRIME LPARENT escrituraGrammar RPARENT SEMICOLON .)
+    ID              reduce using rule 20 (escritura -> IMPRIME LPARENT escrituraGrammar RPARENT SEMICOLON .)
+    COND_SI         reduce using rule 20 (escritura -> IMPRIME LPARENT escrituraGrammar RPARENT SEMICOLON .)
+    IMPRIME         reduce using rule 20 (escritura -> IMPRIME LPARENT escrituraGrammar RPARENT SEMICOLON .)
+
+
+state 77
+
+    (22) escrituraGrammar -> expresion COMA escrituraGrammar .
+
+    RPARENT         reduce using rule 22 (escrituraGrammar -> expresion COMA escrituraGrammar .)
+
+
+state 78
+
+    (24) escrituraGrammar -> varcte COMA escrituraGrammar .
+
+    RPARENT         reduce using rule 24 (escrituraGrammar -> varcte COMA escrituraGrammar .)
+
+
+state 79
+
+    (4) vars2 -> vars3 COLON tipo SEMICOLON vars2 .
+
+    LBRACE          reduce using rule 4 (vars2 -> vars3 COLON tipo SEMICOLON vars2 .)
+
+
+state 80
+
+    (18) condicion -> COND_SI LPARENT expresion RPARENT bloque SEMICOLON .
+
+    RBRACE          reduce using rule 18 (condicion -> COND_SI LPARENT expresion RPARENT bloque SEMICOLON .)
+    ID              reduce using rule 18 (condicion -> COND_SI LPARENT expresion RPARENT bloque SEMICOLON .)
+    COND_SI         reduce using rule 18 (condicion -> COND_SI LPARENT expresion RPARENT bloque SEMICOLON .)
+    IMPRIME         reduce using rule 18 (condicion -> COND_SI LPARENT expresion RPARENT bloque SEMICOLON .)
+
+
+state 81
+
+    (19) condicion -> COND_SI LPARENT expresion RPARENT bloque COND_SINO . bloque SEMICOLON
+    (10) bloque -> . LBRACE estatuto2 RBRACE
+    (11) bloque -> . LBRACE RBRACE
+
+    LBRACE          shift and go to state 7
+
+    bloque                         shift and go to state 82
+
+state 82
+
+    (19) condicion -> COND_SI LPARENT expresion RPARENT bloque COND_SINO bloque . SEMICOLON
+
+    SEMICOLON       shift and go to state 83
+
+
+state 83
+
+    (19) condicion -> COND_SI LPARENT expresion RPARENT bloque COND_SINO bloque SEMICOLON .
+
+    RBRACE          reduce using rule 19 (condicion -> COND_SI LPARENT expresion RPARENT bloque COND_SINO bloque SEMICOLON .)
+    ID              reduce using rule 19 (condicion -> COND_SI LPARENT expresion RPARENT bloque COND_SINO bloque SEMICOLON .)
+    COND_SI         reduce using rule 19 (condicion -> COND_SI LPARENT expresion RPARENT bloque COND_SINO bloque SEMICOLON .)
+    IMPRIME         reduce using rule 19 (condicion -> COND_SI LPARENT expresion RPARENT bloque COND_SINO bloque SEMICOLON .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for COMA in state 44 resolved as shift
+WARNING: reduce/reduce conflict in state 44 resolved using rule (escrituraGrammar -> varcte)
+WARNING: rejected rule (factor -> varcte) in state 44

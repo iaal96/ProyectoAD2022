@@ -1,0 +1,15 @@
+programa prueba;
+var a, b, c : float;
+{   
+    a = 1.0;
+    b = 1.2;
+    c = 2 * 1;
+    imprime(a);
+    imprime("prueba");
+    si(a < b)
+    {
+        c = 10;
+    } sino {
+        c = 9;
+    }; 
+}
